@@ -1,0 +1,8 @@
+<H2>Edit author</H2>
+
+<form action="/authors/<%= author.id %>?_method=PUT" method="post">
+  <%- include('_forms_fields') %>
+  <a href="/authors/<%= author.id %>">Cancel</a>
+  <button type="submit">Update</button>
+
+</form>
