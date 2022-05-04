@@ -11,7 +11,7 @@ name: {
 
 })
 
-authorSchema.pre('remove', function(next) {
+ authorSchema.pre('remove', function(next) {
     Book.find({author: this.id}, (err, books) => {
         if (err) {
             next(err)
@@ -22,6 +22,6 @@ authorSchema.pre('remove', function(next) {
         }
         
     })
-})
+}) 
 
 module.exports = mongoose.model('Author', authorSchema)
