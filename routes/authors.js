@@ -27,7 +27,7 @@ router.get('/new', (req,res) => {
 })
 
 // Create author route
-router.post('/',urlencodedParser, async (req,res) => {
+router.post('/', async (req,res) => {
    const author = new Author({
       name: req.body.name
 })
@@ -72,8 +72,8 @@ router.put('/:id', async (req, res) => {
        author.name = req.body.name
        await author.save()
        res.redirect(`/authors/${author.id}`)
-   } catch (err){
-       console.log(err)
+   } catch {
+       
        if (author == null) {
            res.redirect('/')
        } else {
@@ -92,8 +92,8 @@ router.delete('/:id', async (req, res) => {
         
         await author.remove()
         res.redirect('/authors')
-    } catch (err){
-        console.log(err)
+    } catch {
+        
         if (author == null) {
             res.redirect('/')
         } else {

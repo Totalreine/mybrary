@@ -57,8 +57,8 @@ router.post('/', async (req,res) => {
         res.redirect(`books/${newBook.id}`)
          
 
-    } catch (err) {
-        console.log(err)
+    } catch {
+        
         
         renderNewPage(res, book, true)
     }
@@ -75,8 +75,15 @@ router.get('/:id', async (req, res) => {
 })
 
 // Edit book route
-router.get('/:id', async (req,res) => {
-    renderEditPage(res, book)
+router.get('/:id/edit', async (req,res) => {
+    try {
+        const book = await Book.findById(req.params.id)
+        renderEditPage(res, book)
+    } catch {
+        res.redirect('/')
+    }
+    
+    
 })
 
 // Update book route
@@ -86,10 +93,10 @@ router.put('/:id', async (req,res) => {
 
     try {
         book = await Book.findById(req.params.id)
-        book.title = req.body.title,
-        book.author = req.body.author,
-        book.publishDate = new Date(req.body.publishDate),
-        book.pageCount = req.body.pageCount,
+        book.title = req.body.title
+        book.author = req.body.author
+        book.publishDate = new Date(req.body.publishDate)
+        book.pageCount = req.body.pageCount
         book.description = req.body.description
         
         if (req.body.cover != null && req.body.cover != '') {
@@ -118,7 +125,7 @@ router. delete('/:id', async (req, res) => {
 
     } catch {
       if (book != null) {
-          res.render('/books/show', {
+          res.render('books/show', {
               book: book,
               errorMessage: 'could not remove book'
             })
