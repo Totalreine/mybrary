@@ -2,14 +2,11 @@ const express = require('express')
 const router = express.Router()
 const Author = require('../models/author')
 const Book = require('../models/book')
-const bodyParser = require('body-parser')
-const req = require('express/lib/request')
-const urlencodedParser = bodyParser.urlencoded({limit: '10mb', extended: false})
 
 // All authors
 router.get('/', async (req,res) => {
     let searchOptions = {}
-    if(req.query.name != null && req.query.name != "") {
+    if(req.query.name != null && req.query.name != '') {
         searchOptions.name = new RegExp(req.query.name, 'i')
     }
     try {
